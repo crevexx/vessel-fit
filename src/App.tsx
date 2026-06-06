@@ -12,7 +12,8 @@ import {
   ClipboardList,
   Heart,
   Sun,
-  Moon
+  Moon,
+  Share2
 } from 'lucide-react';
 import { Category, WorkoutLog, Routine, UserProgressState } from './types';
 import { DEFAULT_ROUTINES, PROGRESSION_TREES, PRELOADED_LOGS } from './data/progressions';
@@ -46,6 +47,44 @@ export default function App() {
       console.error(e);
     }
   }, [theme]);
+
+  const [toast, setToast] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (toast) {
+      const timer = setTimeout(() => setToast(null), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [toast]);
+
+  const handleShare = async () => {
+    const shareData = {
+      title: 'Vessel — Calisthenics Progress Planner',
+      text: 'Plan, track, and unlock your calisthenics progressions with Vessel!',
+      url: window.location.href
+    };
+
+    if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        if ((err as Error).name !== 'AbortError') {
+          copyToClipboard();
+        }
+      }
+    } else {
+      copyToClipboard();
+    }
+  };
+
+  const copyToClipboard = () => {
+    try {
+      navigator.clipboard.writeText(window.location.href);
+      setToast('Link copied to clipboard!');
+    } catch (err) {
+      setToast('Failed to copy link.');
+    }
+  };
   
   // App States
   const [currentLevels, setCurrentLevels] = useState<Record<string, string>>({
@@ -234,6 +273,16 @@ export default function App() {
                 <Sun size={13} className="animate-spin-slow" />
               )}
             </button>
+
+            <button
+              id="share-app-button"
+              onClick={handleShare}
+              className="cursor-pointer p-1.5 rounded-xl bg-slate-950/40 hover:bg-slate-950/80 border border-slate-800/80 text-indigo-400 hover:text-indigo-300 transition-all flex items-center justify-center shadow-inner"
+              title="Share Vessel"
+              aria-label="Share Application"
+            >
+              <Share2 size={13} />
+            </button>
           </div>
 
           {/* Tab selectors */}
@@ -372,6 +421,14 @@ export default function App() {
           </p>
         </div>
       </footer>
+
+      {/* Toast Notification */}
+      {toast && (
+        <div className="fixed bottom-6 right-6 z-50 bg-slate-900 border border-slate-800 backdrop-blur-md px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 text-xs font-mono text-indigo-400 select-none animate-bounce">
+          <Sparkles size={14} className="text-indigo-400 animate-pulse" />
+          <span className="font-sans font-semibold">{toast}</span>
+        </div>
+      )}
 
     </div>
   );
