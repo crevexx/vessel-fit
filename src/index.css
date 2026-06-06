@@ -6,12 +6,110 @@
   --font-serif: "Space Grotesk", sans-serif;
 }
 
+:root {
+  --color-slate-950: #020617;
+  --color-slate-900: #0f172a;
+  --color-slate-850: #141c2b;
+  --color-slate-805: #1c2738;
+  --color-slate-800: #1e293b;
+  --color-slate-750: #243144;
+  --color-slate-705: #28374d;
+  --color-slate-700: #334155;
+  --color-slate-605: #475a72;
+  --color-slate-600: #475569;
+  --color-slate-505: #5c6f85;
+  --color-slate-500: #64748b;
+  --color-slate-450: #7c90aa;
+  --color-slate-400: #94a3b8;
+  --color-slate-350: #bdcbdc;
+  --color-slate-300: #cbd5e1;
+  --color-slate-200: #e2e8f0;
+  --color-slate-100: #f1f5f9;
+  --color-slate-50: #f8fafc;
+  --color-indigo-400: #818cf8;
+}
+
+.light {
+  --color-slate-950: #f8fafc; /* Page Background */
+  --color-slate-900: #ffffff; /* Panel/Card Background */
+  --color-slate-850: #f1f5f9; /* Inside card bg / select bg */
+  --color-slate-805: #e2e8f0; /* Accent light-bg divider */
+  --color-slate-800: #e2e8f0; /* Default border */
+  --color-slate-750: #cbd5e1; /* Subtle border */
+  --color-slate-705: #cbd5e1; /* Hover / toggle borders */
+  --color-slate-700: #cbd5e1; /* Inactive tag borders */
+  --color-slate-650: #94a3b8;
+  --color-slate-605: #94a3b8; /* Form placeholder text */
+  --color-slate-600: #64748b; /* Subtle labels */
+  --color-slate-555: #475569;
+  --color-slate-505: #475569; /* Intermediate text */
+  --color-slate-500: #64748b; /* Non-essential icons */
+  --color-slate-450: #334155; /* Secondary text */
+  --color-slate-400: #334155; /* Secondary body / subtitle text */
+  --color-slate-350: #1e293b; /* Readable bold labels */
+  --color-slate-300: #0f172a; /* Strong headings */
+  --color-slate-200: #0f172a; /* Primary text / selections */
+  --color-slate-100: #0f172a; /* Primary text / headings */
+  --color-slate-50: #ffffff;  /* Secondary background for selections */
+  --color-indigo-400: #4f46e5; /* Indigo accent in light mode */
+}
+
 html, body {
-  background-color: #020617; /* Slate-950 equivalent */
+  background-color: var(--color-slate-950);
+  color: var(--color-slate-100);
   margin: 0;
   padding: 0;
   width: 100%;
   overflow-x: hidden;
+  transition: background-color 0.20s ease, color 0.20s ease, border-color 0.20s ease;
+}
+
+/* Light mode specific element adjustments */
+.light .text-white {
+  color: var(--color-slate-100) !important;
+}
+
+/* Retain real white text for primary solid-color elements in light mode */
+.light .bg-indigo-600,
+.light .bg-indigo-600 *,
+.light .bg-indigo-500,
+.light .bg-indigo-505,
+.light .bg-indigo-500 *,
+.light .bg-rose-500,
+.light .bg-rose-500 *,
+.light .bg-emerald-600,
+.light .bg-emerald-600 *,
+.light .bg-emerald-500,
+.light .bg-emerald-500 *,
+.light .text-white-force,
+.light .text-white-force * {
+  color: #ffffff !important;
+}
+
+.light .bg-slate-900\/50 {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(12px);
+}
+
+.light .bg-slate-950 {
+  background-color: var(--color-slate-850) !important;
+}
+
+.light .bg-slate-900\/10 {
+  background-color: rgba(15, 23, 42, 0.05) !important;
+}
+
+.light .bg-slate-900\/30 {
+  background-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+.light .bg-slate-800\/10 {
+  background-color: rgba(79, 70, 229, 0.04) !important; /* light soft backglow */
+}
+
+.light input::placeholder,
+.light textarea::placeholder {
+  color: var(--color-slate-500) !important;
 }
 
 /* Custom aesthetics for scrollbar elements in list panels */
@@ -38,5 +136,14 @@ html, body {
   0% { opacity: 0.85; }
   50% { opacity: 1; }
   100% { opacity: 0.85; }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
 }
 

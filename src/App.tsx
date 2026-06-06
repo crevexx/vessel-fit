@@ -10,7 +10,9 @@ import {
   Flame, 
   Sparkles,
   ClipboardList,
-  Heart
+  Heart,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { Category, WorkoutLog, Routine, UserProgressState } from './types';
 import { DEFAULT_ROUTINES, PROGRESSION_TREES, PRELOADED_LOGS } from './data/progressions';
@@ -23,6 +25,27 @@ import WorkoutLogger from './components/WorkoutLogger';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>('dashboard');
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    try {
+      return (localStorage.getItem('cali_theme') as 'light' | 'dark') || 'dark';
+    } catch {
+      return 'dark';
+    }
+  });
+
+  useEffect(() => {
+    try {
+      const root = window.document.documentElement;
+      if (theme === 'light') {
+        root.classList.add('light');
+      } else {
+        root.classList.remove('light');
+      }
+      localStorage.setItem('cali_theme', theme);
+    } catch (e) {
+      console.error(e);
+    }
+  }, [theme]);
   
   // App States
   const [currentLevels, setCurrentLevels] = useState<Record<string, string>>({
@@ -183,18 +206,34 @@ export default function App() {
       <nav id="app-nav" className="w-full max-w-7xl mx-auto px-4 py-4 shrink-0">
         <div className="bg-slate-900/50 border border-slate-800 backdrop-blur-md px-5 py-3 rounded-2xl flex items-center justify-between flex-wrap gap-4">
           
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center shadow-lg shadow-indigo-600/20">
-              <Dumbbell size={18} className="text-white font-black animate-pulse" />
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center shadow-lg shadow-indigo-600/20">
+                <Dumbbell size={18} className="text-white font-black animate-pulse" />
+              </div>
+              <div>
+                <h1 className="text-sm font-bold tracking-tight text-white font-sans">
+                  Vessel
+                </h1>
+                <p className="text-[10px] font-mono tracking-wider text-indigo-400 uppercase">
+                  Calisthenics Planner
+                </p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-sm font-bold tracking-tight text-white font-sans">
-                Vessel
-              </h1>
-              <p className="text-[10px] font-mono tracking-wider text-indigo-400 uppercase">
-                Calisthenics Planner
-              </p>
-            </div>
+
+            <button
+              id="theme-mode-toggle"
+              onClick={() => setTheme(prev => prev === 'light' ? 'dark' : 'light')}
+              className="cursor-pointer p-1.5 rounded-xl bg-slate-950/40 hover:bg-slate-950/80 border border-slate-800/80 text-indigo-400 hover:text-indigo-300 transition-all flex items-center justify-center shadow-inner"
+              title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
+              aria-label="Toggle Theme Mode"
+            >
+              {theme === 'light' ? (
+                <Moon size={13} className="animate-pulse" />
+              ) : (
+                <Sun size={13} className="animate-spin-slow" />
+              )}
+            </button>
           </div>
 
           {/* Tab selectors */}
