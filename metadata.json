@@ -1,0 +1,6 @@
+{
+  "name": "Calisthenics Progress Planner",
+  "description": "A single-page planner to track calisthenics progressions, design routines, log workouts, and visualize dynamic progress graphs with an interactive rest timer.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
