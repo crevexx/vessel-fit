@@ -89,13 +89,13 @@ export default function RoutinesBuilder({
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-10">
       
       {/* Header action panel */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-base font-bold text-white tracking-tight">Structured Routine Planner</h2>
-          <p className="text-xs text-slate-400">Design custom combinations or launch optimized baseline workouts.</p>
+          <h2 className="text-2xl font-black font-serif text-white tracking-tight">Structured Routine Planner</h2>
+          <p className="text-xs text-slate-450 mt-1">Design custom combinations or launch optimized baseline workouts.</p>
         </div>
 
         {!isCreating && (
@@ -287,18 +287,18 @@ export default function RoutinesBuilder({
       )}
 
       {/* Grid listing all default and custom routines */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
         {allRoutines.map((routine) => {
           const isCustom = routine.id.startsWith('custom_r_');
           
           return (
             <div 
               key={routine.id}
-              className="bg-slate-900 border border-slate-800 hover:border-slate-705 rounded-2xl p-5 flex flex-col justify-between transition-all"
+              className="bg-slate-900/10 border-b border-slate-800/40 pb-8 rounded-none flex flex-col justify-between transition-all"
             >
               <div>
                 <div className="flex items-center justify-between mb-4 select-none">
-                  <span className="text-[10px] font-mono tracking-wider px-2.5 py-0.5 rounded bg-slate-950 border border-slate-800 text-slate-400 font-bold">
+                  <span className="text-[10px] font-mono tracking-wider px-2 py-0.5 rounded bg-slate-950 border border-slate-800/50 text-slate-400 font-bold uppercase">
                     {routine.category} Focus
                   </span>
                   {isCustom ? (
@@ -306,37 +306,37 @@ export default function RoutinesBuilder({
                       Custom
                     </span>
                   ) : (
-                    <span className="text-[10px] font-mono uppercase bg-slate-850 text-slate-400 border border-slate-800 px-2 py-0.5 rounded font-bold">
+                    <span className="text-[10px] font-mono uppercase text-slate-500 border border-slate-850 px-2 py-0.5 rounded font-bold">
                       Baseline
                     </span>
                   )}
                 </div>
 
-                <h3 className="text-sm font-bold text-white tracking-tight">{routine.name}</h3>
-                <p className="text-xs text-slate-400 font-sans leading-relaxed mt-1 mb-4 italic">
+                <h3 className="text-lg font-extrabold font-serif text-white tracking-tight">{routine.name}</h3>
+                <p className="text-xs text-slate-400 font-sans leading-relaxed mt-1.5 mb-5 italic">
                   "{routine.description}"
                 </p>
 
                 {/* List of constituent exercises */}
-                <div className="space-y-1.5">
-                  <h4 className="text-[10px] uppercase font-mono tracking-wider text-slate-500 font-bold">Exercise Lineup</h4>
+                <div className="space-y-1 mt-4">
+                  <h4 className="text-[10px] uppercase font-mono tracking-wider text-slate-500 font-bold mb-1.5">Exercise Lineup</h4>
                   {routine.exercises.map((re) => {
                     const matchedEx = allAvailableExercises.find(e => e.id === re.exerciseId);
                     return (
-                      <div key={re.exerciseId} className="flex items-center justify-between bg-slate-850/40 border border-slate-800/60 px-2.5 py-1.5 rounded-lg">
-                        <span className="text-[11px] text-slate-350 truncate max-w-[170px] font-medium">{matchedEx ? matchedEx.name : 'Unknown exercise'}</span>
-                        <span className="text-[10px] text-slate-500 font-mono font-medium">{re.targetSets}s x {re.targetRepsOrTime}</span>
+                      <div key={re.exerciseId} className="flex items-center justify-between border-b border-slate-850/40 py-1.5">
+                        <span className="text-xs text-slate-300 truncate max-w-[180px] font-medium">{matchedEx ? matchedEx.name : 'Unknown exercise'}</span>
+                        <span className="text-[11px] text-indigo-400 font-mono font-medium">{re.targetSets}s &times; {re.targetRepsOrTime}</span>
                       </div>
                     );
                   })}
                 </div>
               </div>
 
-              <div className="flex items-center justify-between pt-4 mt-6 border-t border-slate-800">
+              <div className="flex items-center justify-between pt-4 mt-6 border-t border-slate-800/20">
                 {isCustom ? (
                   <button
                     onClick={() => onDeleteRoutine(routine.id)}
-                    className="cursor-pointer text-xs text-slate-500 hover:text-rose-450 transition-colors py-1 px-2 hover:bg-rose-950/10 rounded"
+                    className="cursor-pointer text-xs text-slate-500 hover:text-rose-400 transition-colors py-1 px-2 hover:bg-rose-950/5 rounded"
                     title="Delete custom routine plan"
                   >
                     Delete Routine
@@ -347,9 +347,9 @@ export default function RoutinesBuilder({
 
                 <button
                   onClick={() => onStartRoutine(routine)}
-                  className="cursor-pointer flex items-center gap-1 px-4 py-2 bg-indigo-600 hover:bg-indigo-505 text-white text-xs font-bold transition-all shadow-md active:scale-95 rounded-xl"
+                  className="cursor-pointer flex items-center gap-1.5 px-4 py-2 bg-indigo-600 hover:bg-indigo-505 text-white text-xs font-bold transition-all shadow-sm active:scale-95 rounded-xl text-white-force"
                 >
-                  <Play size={12} fill="white" /> Engage Routine
+                  <Play size={11} fill="white" /> Engage Routine
                 </button>
               </div>
 

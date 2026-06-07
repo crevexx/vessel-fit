@@ -7,26 +7,36 @@
 }
 
 :root {
-  --color-slate-950: #020617;
-  --color-slate-900: #0f172a;
-  --color-slate-850: #141c2b;
-  --color-slate-805: #1c2738;
-  --color-slate-800: #1e293b;
-  --color-slate-750: #243144;
-  --color-slate-705: #28374d;
-  --color-slate-700: #334155;
-  --color-slate-605: #475a72;
-  --color-slate-600: #475569;
-  --color-slate-505: #5c6f85;
-  --color-slate-500: #64748b;
-  --color-slate-450: #7c90aa;
-  --color-slate-400: #94a3b8;
-  --color-slate-350: #bdcbdc;
-  --color-slate-300: #cbd5e1;
-  --color-slate-200: #e2e8f0;
-  --color-slate-100: #f1f5f9;
-  --color-slate-50: #f8fafc;
-  --color-indigo-400: #818cf8;
+  /* Moody desaturated indie film aesthetic (Matte Charcoal & Warm Slate) */
+  --color-slate-950: #121316; /* Warm matte graphite page bg */
+  --color-slate-900: #17181c; /* Deep slate card/panel background */
+  --color-slate-850: #1e1f24; /* Sub-container soft dark fill */
+  --color-slate-805: #212328; /* Divider highlights shadow */
+  --color-slate-800: #25272e; /* Sleek, extremely elegant desaturated border */
+  --color-slate-750: #2a2c34; /* Soft secondary dividers */
+  --color-slate-705: #2f323c; /* Hover container bounds */
+  --color-slate-700: #343743; /* Tag border */
+  --color-slate-605: #505360; /* Placeholder text */
+  --color-slate-600: #5c6070; /* Soft text headers */
+  --color-slate-505: #7c8092; /* High-readability labels */
+  --color-slate-500: #626574; /* General desaturated icons */
+  --color-slate-450: #9e1c22;
+  --color-slate-400: #a5a9bc; /* Intermediate metadata text */
+  --color-slate-350: #c5c8d6; /* Muted secondary font selection */
+  --color-slate-300: #dedfe6; /* Active panel descriptors */
+  --color-slate-200: #e6e7ed; /* Primary body text */
+  --color-slate-100: #f4f4f7; /* High-contrast white headers */
+  --color-slate-50: #fafafc;  /* Absolute crisp contrast paper */
+  
+  /* Single Subtle Muted Amber brand accents (replaces neon indigo) */
+  --color-indigo-600: #cf8a3c; /* Hand-crafted warm golden amber buttons */
+  --color-indigo-505: #bf8137;
+  --color-indigo-500: #b5762e; /* Muted active buttons states */
+  --color-indigo-400: #cca062; /* Soft amber text link highlights */
+  
+  /* Desaturated emerald completion highlights to match the film palette */
+  --color-emerald-450: #7b9481; /* Desaturated sage green */
+  --color-emerald-400: #8da493; /* Desaturated sage text status */
 }
 
 .light {

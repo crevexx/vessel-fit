@@ -108,88 +108,85 @@ export default function Dashboard({ history, trees, currentLevels, onDeleteLog, 
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-10">
       
       {/* Metric Cards - Bento Grid style */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         
         {/* Streak */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex items-center justify-between relative overflow-hidden transition-all hover:border-slate-700">
-          <div className="absolute top-0 right-0 w-16 h-16 bg-emerald-500/5 blur-xl rounded-full pointer-events-none"></div>
+        <div className="bg-slate-900 border border-slate-800/60 rounded-2xl p-4 flex items-center justify-between relative overflow-hidden transition-all hover:border-slate-800">
           <div>
-            <span className="text-[10px] font-semibold tracking-wider text-slate-450 uppercase">Active Streak</span>
-            <div className="flex items-baseline gap-1.5 mt-1">
-              <span className="text-2xl font-bold text-white">{streakValue}</span>
-              <span className="text-xs text-slate-400 font-medium">days</span>
+            <span className="text-[10px] font-mono tracking-wider text-slate-500 uppercase block font-bold">Active Streak</span>
+            <div className="flex items-baseline gap-1 mt-1 select-none">
+              <span className="text-2xl font-black font-serif text-white">{streakValue}</span>
+              <span className="text-[11px] text-slate-450 font-mono">Days</span>
             </div>
           </div>
-          <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-450">
-            <Flame size={20} className={streakValue > 0 ? "animate-pulse" : ""} />
+          <div className="w-9 h-9 rounded-lg bg-indigo-500/5 border border-indigo-500/10 flex items-center justify-center text-indigo-400">
+            <Flame size={16} className={streakValue > 0 ? "animate-pulse" : ""} />
           </div>
         </div>
 
         {/* Total Workouts */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex items-center justify-between relative overflow-hidden transition-all hover:border-slate-700">
-          <div className="absolute top-0 right-0 w-16 h-16 bg-blue-500/5 blur-xl rounded-full pointer-events-none"></div>
+        <div className="bg-slate-900 border border-slate-800/60 rounded-2xl p-4 flex items-center justify-between relative overflow-hidden transition-all hover:border-slate-800">
           <div>
-            <span className="text-[10px] font-semibold tracking-wider text-slate-450 uppercase">Total Sessions</span>
-            <div className="flex items-baseline gap-1.5 mt-1">
-              <span className="text-2xl font-bold text-white">{totalWorkouts}</span>
-              <span className="text-xs text-slate-400 font-medium">logged</span>
+            <span className="text-[10px] font-mono tracking-wider text-slate-500 uppercase block font-bold">Total Sessions</span>
+            <div className="flex items-baseline gap-1 mt-1 select-none">
+              <span className="text-2xl font-black font-serif text-white">{totalWorkouts}</span>
+              <span className="text-[11px] text-slate-450 font-mono">Logged</span>
             </div>
           </div>
-          <div className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
-            <Dumbbell size={20} />
+          <div className="w-9 h-9 rounded-lg bg-slate-850 border border-slate-800/65 flex items-center justify-center text-slate-405">
+            <Dumbbell size={16} />
           </div>
         </div>
 
         {/* Max Level */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex items-center justify-between relative overflow-hidden transition-all hover:border-slate-700">
-          <div className="absolute top-0 right-0 w-16 h-16 bg-indigo-500/5 blur-xl rounded-full pointer-events-none"></div>
+        <div className="bg-slate-900 border border-slate-800/60 rounded-2xl p-4 flex items-center justify-between relative overflow-hidden transition-all hover:border-slate-800">
           <div>
-            <span className="text-[10px] font-semibold tracking-wider text-slate-450 uppercase">Skill Grade</span>
-            <div className="flex items-baseline gap-1.5 mt-1">
-              <span className="text-2xl font-bold text-white">Lvl {maxLevelUnlocked}</span>
-              <span className="text-xs text-slate-400 font-medium">Peak</span>
+            <span className="text-[10px] font-mono tracking-wider text-slate-500 uppercase block font-bold">Skill Grade</span>
+            <div className="flex items-baseline gap-1 mt-1 select-none">
+              <span className="text-2xl font-black font-serif text-white">Lvl {maxLevelUnlocked}</span>
+              <span className="text-[11px] text-slate-450 font-mono">Peak</span>
             </div>
           </div>
-          <div className="w-10 h-10 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
-            <Award size={20} />
+          <div className="w-9 h-9 rounded-lg bg-indigo-500/5 border border-indigo-500/15 flex items-center justify-center text-indigo-400">
+            <Award size={16} />
           </div>
         </div>
 
         {/* Total Volume sets */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex items-center justify-between relative overflow-hidden transition-all hover:border-slate-700">
-          <div className="absolute top-0 right-0 w-16 h-16 bg-slate-500/5 blur-xl rounded-full pointer-events-none"></div>
+        <div className="bg-slate-900 border border-slate-800/60 rounded-2xl p-4 flex items-center justify-between relative overflow-hidden transition-all hover:border-slate-800">
           <div>
-            <span className="text-[10px] font-semibold tracking-wider text-slate-450 uppercase">Work Output</span>
-            <div className="flex items-baseline gap-1.5 mt-1">
-              <span className="text-2xl font-bold text-white">{totalSetsCompleted}</span>
-              <span className="text-xs text-slate-400 font-medium">sets</span>
+            <span className="text-[10px] font-mono tracking-wider text-slate-500 uppercase block font-bold">Work Output</span>
+            <div className="flex items-baseline gap-1 mt-1 select-none">
+              <span className="text-2xl font-black font-serif text-white">{totalSetsCompleted}</span>
+              <span className="text-[11px] text-slate-450 font-mono">Sets</span>
             </div>
           </div>
-          <div className="w-10 h-10 rounded-lg bg-slate-850/50 border border-slate-705 flex items-center justify-center text-slate-350">
-            <Clock size={20} />
+          <div className="w-9 h-9 rounded-lg bg-slate-850/50 border border-slate-800 flex items-center justify-center text-slate-500">
+            <Clock size={16} />
           </div>
         </div>
 
       </div>
 
       {/* Main Grid: Active level widgets & Training volume SVG Chart */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-4">
         
         {/* Left widget: Progressions levels tracker quickview */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 lg:col-span-4 flex flex-col justify-between">
+        <div className="bg-transparent rounded-none lg:col-span-4 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-slate-800/40 lg:pr-8 pb-6 lg:pb-0">
           <div>
             <div className="flex items-center gap-1.5 mb-2">
-              <Sparkles size={16} className="text-indigo-400" />
-              <h3 className="text-sm font-bold text-white tracking-tight">Active Milestones</h3>
+              <Sparkles size={14} className="text-indigo-400" />
+              <h3 className="text-[10px] font-mono font-bold tracking-wider uppercase text-slate-500">Active Milestones</h3>
             </div>
-            <p className="text-xs text-slate-400 leading-relaxed mb-4">
+            <h4 className="text-lg font-extrabold font-serif text-white tracking-tight leading-snug mb-3">Core Progressions</h4>
+            <p className="text-xs text-slate-455 leading-relaxed mb-6 font-sans">
               Your selected active progression levels across the 5 primary branches.
             </p>
 
-            <div className="space-y-2.5">
+            <div className="space-y-3">
               {trees.map((tree) => {
                 const currentId = currentLevels[tree.id];
                 const activeLevelNode = tree.levels.find(l => l.id === currentId);
@@ -198,20 +195,20 @@ export default function Dashboard({ history, trees, currentLevels, onDeleteLog, 
                 const progressPercent = (activeLevelNum / tree.levels.length) * 100;
 
                 return (
-                  <div key={tree.id} className="bg-slate-850/40 p-2.5 rounded-lg border border-slate-800/40 transition-all hover:bg-slate-850/80">
+                  <div key={tree.id} className="bg-slate-900/40 p-3 rounded-xl border border-slate-800/40 transition-all hover:bg-slate-900">
                     <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-xs font-semibold text-slate-300 truncate max-w-[130px]">{tree.name.split(' ')[0]} Path</span>
-                      <span className="text-[10px] font-mono bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded">
+                      <span className="text-xs font-bold text-slate-300 truncate max-w-[130px]">{tree.name.split(' ')[0]} Path</span>
+                      <span className="text-[9px] font-mono bg-slate-950 text-slate-450 px-1.5 py-0.5 rounded uppercase font-bold">
                         Lvl {activeLevelNum}/7
                       </span>
                     </div>
-                    <div className="text-[11px] text-indigo-400 truncate font-mono">
+                    <div className="text-xs text-indigo-400 font-mono truncate font-medium">
                       {activeName}
                     </div>
                     {/* Tiny visual bar */}
-                    <div className="h-1 bg-slate-805 rounded-full mt-2 overflow-hidden">
+                    <div className="h-1 bg-slate-950 rounded-full mt-2.5 overflow-hidden">
                       <div 
-                        className="h-full bg-indigo-500 rounded-full transition-all duration-500"
+                        className="h-full bg-indigo-600 rounded-full transition-all duration-500"
                         style={{ width: `${progressPercent}%` }}
                       ></div>
                     </div>
@@ -223,28 +220,28 @@ export default function Dashboard({ history, trees, currentLevels, onDeleteLog, 
 
           <button
             onClick={() => onSelectTab('progressions')}
-            className="w-full flex items-center justify-center gap-1 text-xs text-indigo-400 hover:text-indigo-305 transition-colors mt-4 pt-4 border-t border-slate-800 font-medium cursor-pointer"
+            className="w-full flex items-center justify-center gap-1 text-xs text-indigo-400 hover:text-indigo-300 transition-colors mt-6 pt-4 border-t border-slate-805 font-semibold cursor-pointer"
           >
             Manage Progressions
-            <ChevronRight size={14} />
+            <ChevronRight size={13} />
           </button>
         </div>
 
         {/* Right widget: Custom SVG training volume chart */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 lg:col-span-8">
-          <div className="flex items-center justify-between mb-2">
+        <div className="bg-slate-900/10 rounded-none lg:col-span-8">
+          <div className="flex items-center justify-between mb-3 select-none">
             <div>
-              <div className="flex items-center gap-1.5 mb-0.5">
-                <TrendingUp size={16} className="text-indigo-400" />
-                <h3 className="text-sm font-bold text-white tracking-tight">Vigor Intensity Chart</h3>
+              <div className="flex items-center gap-1.5 mb-1.5">
+                <TrendingUp size={14} className="text-indigo-400" />
+                <h3 className="text-[10px] font-mono font-bold tracking-wider uppercase text-slate-500">Vigor Intensity Chart</h3>
               </div>
-              <h4 className="text-[11px] text-slate-400">Reps & Holds Completed (Last 7 Sessions)</h4>
+              <h4 className="text-lg font-extrabold font-serif text-white tracking-tight">Load Progression</h4>
             </div>
 
             {chartData.length > 0 && hoveredDataPoint !== null && (
               <div className="text-right">
-                <span className="text-[10px] text-slate-500 uppercase block font-mono">Volume on {chartData[hoveredDataPoint].dateString}</span>
-                <span className="text-xs font-bold font-mono text-indigo-400">{chartData[hoveredDataPoint].volume} units</span>
+                <span className="text-[9px] text-slate-505 uppercase block font-mono">Volume on {chartData[hoveredDataPoint].dateString}</span>
+                <span className="text-xs font-bold font-mono text-indigo-400">{chartData[hoveredDataPoint].volume} Units</span>
               </div>
             )}
           </div>
@@ -267,10 +264,10 @@ export default function Dashboard({ history, trees, currentLevels, onDeleteLog, 
                 className="w-full h-full overflow-visible"
               >
                 <defs>
-                  {/* Glowing purple-to-indigo style area fill */}
+                  {/* Glowing warm amber style area fill */}
                   <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#6366f1" stopOpacity="0.25" />
-                    <stop offset="100%" stopColor="#6366f1" stopOpacity="0.00" />
+                    <stop offset="0%" stopColor="#cf8a3c" stopOpacity="0.20" />
+                    <stop offset="100%" stopColor="#cf8a3c" stopOpacity="0.00" />
                   </linearGradient>
                 </defs>
 
@@ -284,7 +281,7 @@ export default function Dashboard({ history, trees, currentLevels, onDeleteLog, 
                       y1={y}
                       x2={svgWidth - paddingX}
                       y2={y}
-                      stroke="#1e293b"
+                      stroke="#22242a"
                       strokeWidth="1"
                       strokeDasharray="4 4"
                     />
@@ -301,8 +298,8 @@ export default function Dashboard({ history, trees, currentLevels, onDeleteLog, 
                   <path
                     d={pathStr}
                     fill="none"
-                    stroke="#6366f1"
-                    strokeWidth="2.5"
+                    stroke="#cf8a3c"
+                    strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     className="transition-all duration-500"
@@ -327,10 +324,10 @@ export default function Dashboard({ history, trees, currentLevels, onDeleteLog, 
                     <circle
                       cx={pt.x}
                       cy={pt.y}
-                      r={hoveredDataPoint === index ? "6" : "3.5"}
-                      fill={hoveredDataPoint === index ? "#ffffff" : "#6366f1"}
-                      stroke="#0f172a"
-                      strokeWidth="2"
+                      r={hoveredDataPoint === index ? "5" : "3"}
+                      fill={hoveredDataPoint === index ? "#ffffff" : "#cf8a3c"}
+                      stroke="#121316"
+                      strokeWidth="2.5"
                       className="transition-all duration-150 pointer-events-none"
                     />
 
@@ -338,7 +335,7 @@ export default function Dashboard({ history, trees, currentLevels, onDeleteLog, 
                     <text
                       x={pt.x}
                       y={svgHeight - 10}
-                      fill="#64748b"
+                      fill="#626574"
                       fontSize="9"
                       fontFamily="monospace"
                       textAnchor="middle"
@@ -355,24 +352,24 @@ export default function Dashboard({ history, trees, currentLevels, onDeleteLog, 
 
       </div>
 
-      {/* Grid: Live Log History */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5">
-        <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
-          <div className="flex items-center gap-1.5">
-            <Calendar size={16} className="text-indigo-400" />
-            <h3 className="text-sm font-bold text-white tracking-tight">Workout Session Logs</h3>
+      {/* Grid: Live Log History - Beautiful, borderless listing */}
+      <div className="bg-transparent rounded-none pt-4">
+        <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-805">
+          <div className="flex items-center gap-1.5 select-none">
+            <Calendar size={14} className="text-indigo-400" />
+            <h3 className="text-lg font-extrabold font-serif text-white tracking-tight">Workout Session Logs</h3>
           </div>
-          <span className="text-[10px] font-mono bg-slate-950 border border-slate-800 text-slate-500 px-2 py-0.5 rounded">
+          <span className="text-[9px] font-mono bg-slate-900 border border-slate-800 text-slate-450 px-2.5 py-0.5 rounded uppercase font-bold">
             {history.length} Logs Saved
           </span>
         </div>
 
         {history.length === 0 ? (
-          <div className="text-center py-12">
+          <div className="text-center py-12 select-none">
             <p className="text-xs text-slate-500">Your logged journals will accumulate here.</p>
           </div>
         ) : (
-          <div className="space-y-3.5 max-h-[350px] overflow-y-auto pr-1">
+          <div className="space-y-4 max-h-[420px] overflow-y-auto pr-1">
             {[...history].reverse().map((log) => {
               // Format Date elegantly
               const cleanDate = new Date(log.date).toLocaleDateString('en-US', {
@@ -385,31 +382,31 @@ export default function Dashboard({ history, trees, currentLevels, onDeleteLog, 
               return (
                 <div 
                   key={log.id} 
-                  className="bg-slate-850/20 border border-slate-800 hover:border-slate-700/80 p-4 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all"
+                  className="bg-transparent border-b border-slate-805 pb-4 last:border-b-0 last:pb-0 flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all"
                 >
-                  <div className="space-y-1.5 flex-1 select-none">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-xs font-mono font-medium text-emerald-400">
+                  <div className="space-y-2 flex-1 select-none">
+                    <div className="flex items-center gap-2.5 flex-wrap">
+                      <span className="text-xs font-mono font-bold text-amber-500 uppercase tracking-wide">
                         {cleanDate}
                       </span>
                       {log.routineName && (
-                        <span className="text-[10px] font-sans text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-2.5 py-0.5 rounded">
+                        <span className="text-[10px] font-mono font-bold text-slate-400 bg-slate-900 border border-slate-800/80 px-2 py-0.5 rounded">
                           {log.routineName}
                         </span>
                       )}
                       {log.durationMinutes && (
                         <span className="text-[10px] text-slate-500 font-mono">
-                          ⏱ {log.durationMinutes} mins
+                          ⏱ {log.durationMinutes} Mins
                         </span>
                       )}
                     </div>
 
                     {/* Exercises list summary */}
-                    <div className="flex items-center gap-1.5 flex-wrap pt-1">
+                    <div className="flex items-center gap-1.5 flex-wrap pt-0.5">
                       {log.exercisesLogged.map((ex, i) => (
                         <span 
                           key={ex.id} 
-                          className="text-[11px] px-2 py-0.5 rounded bg-slate-805 border border-slate-750 text-slate-300"
+                          className="text-[11px] px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-350 font-medium"
                         >
                           {ex.exerciseName} ({ex.sets.length} sets)
                         </span>
@@ -417,7 +414,7 @@ export default function Dashboard({ history, trees, currentLevels, onDeleteLog, 
                     </div>
 
                     {log.notes && (
-                      <p className="text-xs text-slate-500 italic mt-1 pl-1.5 border-l border-slate-800">
+                      <p className="text-xs text-slate-450 italic mt-1.5 pl-2.5 border-l border-slate-800 leading-relaxed font-sans">
                         "{log.notes}"
                       </p>
                     )}
@@ -426,10 +423,10 @@ export default function Dashboard({ history, trees, currentLevels, onDeleteLog, 
                   <div className="flex items-center justify-end">
                     <button
                       onClick={() => onDeleteLog(log.id)}
-                      className="cursor-pointer p-2 rounded-lg bg-slate-800 hover:bg-rose-500/10 text-slate-500 hover:text-rose-400 border border-slate-750 hover:border-rose-900/30 transition-all"
+                      className="cursor-pointer p-2 rounded-lg bg-slate-900 hover:bg-rose-500/5 text-slate-500 hover:text-rose-450 border border-slate-800 hover:border-rose-500/20 transition-all"
                       title="Delete log record"
                     >
-                      <Trash2 size={14} />
+                      <Trash2 size={13} />
                     </button>
                   </div>
                 </div>

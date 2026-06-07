@@ -216,69 +216,71 @@ export default function WorkoutLogger({ activeRoutine, onAddWorkoutLog, onClearA
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-10">
       
-      {/* Dynamic top bar with Stopwatch and actions */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      {/* Dynamic top bar with Stopwatch and actions - Slim, borderless header */}
+      <div className="border-b border-slate-800/40 pb-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-xl">
-            <Dumbbell size={20} />
+          <div className="p-2.5 bg-indigo-500/10 text-indigo-400 rounded-xl">
+            <Dumbbell size={18} />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-white tracking-tight">
+            <h3 className="text-2xl font-black font-serif text-white tracking-tight">
               {activeRoutine ? activeRoutine.name : 'Freeform Volume Quest'}
             </h3>
-            <p className="text-xs text-slate-400">
-              {activeRoutine ? 'Standard Routine loaded' : 'Choose components to build a customized track'}
+            <p className="text-xs text-slate-450 mt-1">
+              {activeRoutine ? 'Baseline routine loaded' : 'Choose components to build a customized track'}
             </p>
           </div>
         </div>
 
         {/* Workout Stopwatch widget */}
-        <div className="flex items-center gap-3 self-start md:self-auto">
-          <div className="bg-slate-950 border border-slate-800 px-3.5 py-1.5 rounded-lg flex items-center gap-2">
-            <Clock size={14} className="text-slate-500 font-mono" />
-            <span className="text-sm font-mono text-white font-bold inline-block w-[64px] text-center">
+        <div className="flex items-center gap-3 self-start md:self-auto select-none">
+          <div className="bg-slate-950 border border-slate-800/60 px-3 py-1.5 rounded-lg flex items-center gap-2">
+            <Clock size={12} className="text-slate-500 font-mono" />
+            <span className="text-xs font-mono text-white font-bold inline-block w-[60px] text-center">
               {formatStopwatch(elapsedSeconds)}
             </span>
           </div>
 
           <button
             onClick={handleStopwatchToggle}
-            className={`cursor-pointer p-2 rounded-lg border text-xs font-semibold flex items-center justify-center gap-1 ${
+            className={`cursor-pointer px-3 py-1.5 rounded-lg border text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
               timerRunning 
-                ? 'bg-amber-500/15 border-amber-500/30 text-amber-400' 
-                : 'bg-indigo-500/15 border-indigo-500/30 text-indigo-400'
+                ? 'bg-amber-500/10 border-amber-500/20 text-amber-500' 
+                : 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400'
             }`}
           >
-            {timerRunning ? <Pause size={13} /> : <Play size={13} />}
+            {timerRunning ? <Pause size={12} /> : <Play size={12} />}
             {timerRunning ? 'Pause' : 'Resume'}
           </button>
 
           <button
             onClick={handleStopwatchReset}
-            className="cursor-pointer p-2 rounded-lg bg-slate-850 hover:bg-slate-800 text-slate-500 hover:text-slate-300 border border-slate-850"
+            className="cursor-pointer p-2 rounded-lg bg-slate-955 hover:bg-slate-800 text-slate-500 hover:text-slate-350 border border-slate-850"
             title="Reset stopwatch clock"
           >
-            <RotateCcw size={13} />
+            <RotateCcw size={12} />
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch pt-2">
         
-        {/* Left Side: Exercise Logging Cards */}
-        <div className="lg:col-span-8 space-y-4">
+        {/* Left Side: Exercise Logging Cards - Beautiful, borderless lists with whitespace */}
+        <div className="lg:col-span-8 space-y-2">
           {exercisesToLog.length === 0 ? (
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 text-center text-slate-400 space-y-4">
-              <ClipboardList className="mx-auto text-slate-600" size={32} />
+            <div className="border border-dashed border-slate-800/80 rounded-2xl p-10 text-center text-slate-400 space-y-4">
+              <ClipboardList className="mx-auto text-slate-600" size={28} />
               <div className="max-w-md mx-auto">
-                <p className="text-xs text-slate-400">Active workout chamber has no objectives yet.</p>
-                <p className="text-xs text-slate-500 mt-1">Select a routine from the Routine tab first, or use the panel on the right side of this screen to manually summon calisthenics Exercises!</p>
+                <p className="text-xs text-slate-400 font-medium">Active workout chamber has no objectives yet.</p>
+                <p className="text-[11px] text-slate-505 mt-1.5 leading-relaxed">
+                  Select a routine from the Routine tab first, or use the panel on the right side of this screen to manually summon calisthenics exercises!
+                </p>
               </div>
             </div>
           ) : (
-            <div className="space-y-4">
+            <div className="divide-y divide-slate-800/40">
               {exercisesToLog.map((elog, elIdx) => {
                 const matchedExObj = allAvailableExercises.find(e => e.id === elog.exerciseId);
                 const isRepsMetric = matchedExObj?.targetMetric === 'reps';
@@ -286,21 +288,21 @@ export default function WorkoutLogger({ activeRoutine, onAddWorkoutLog, onClearA
                 return (
                   <div 
                     key={elog.id}
-                    className="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3.5 transition-all hover:border-slate-705 relative"
+                    className="py-8 first:pt-0 pb-8 space-y-4 transition-all relative"
                   >
                     {/* Exercise label header */}
-                    <div className="flex items-center justify-between gap-4 pb-2 border-b border-slate-800 select-none">
-                      <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-between gap-4 pb-2 border-b border-slate-805 select-none">
+                      <div className="flex items-center gap-2.5">
                         <span className="text-[10px] font-mono text-slate-500 font-bold">#{elIdx+1}</span>
-                        <h4 className="text-xs font-bold text-white tracking-tight">{elog.exerciseName}</h4>
-                        <span className="text-[9px] font-mono tracking-wider bg-slate-950 border border-slate-800 text-slate-400 px-1.5 py-0.5 rounded uppercase">
+                        <h4 className="text-sm font-bold text-white tracking-wide">{elog.exerciseName}</h4>
+                        <span className="text-[9px] font-mono tracking-wider bg-slate-950 border border-slate-800/60 text-slate-400 px-1.5 py-0.5 rounded uppercase font-bold">
                           {elog.category}
                         </span>
                       </div>
 
                       <button
                         onClick={() => handleRemoveExerciseFromLog(elog.id)}
-                        className="cursor-pointer text-slate-500 hover:text-rose-450 text-xs transition-colors hover:bg-rose-950/10 px-2 py-1 rounded"
+                        className="cursor-pointer text-slate-500 hover:text-rose-400 text-[11px] transition-colors"
                       >
                         Remove Slot
                       </button>
@@ -309,7 +311,7 @@ export default function WorkoutLogger({ activeRoutine, onAddWorkoutLog, onClearA
                     {/* Table-like headers for set indices */}
                     <div className="overflow-x-auto pb-2 -mx-2 px-2 scrollbar-thin">
                       <div className="space-y-2 min-w-[440px]">
-                        <div className="grid grid-cols-12 gap-2 text-[10px] font-mono uppercase text-slate-500 font-bold px-1 select-none">
+                        <div className="grid grid-cols-12 gap-2 text-[9px] font-mono uppercase text-slate-500 font-bold px-1 select-none">
                           <div className="col-span-2">Set</div>
                           <div className="col-span-4">{isRepsMetric ? 'Reps' : 'Hold (seconds)'}</div>
                           <div className="col-span-3">Add Weight (kg)</div>
@@ -319,9 +321,9 @@ export default function WorkoutLogger({ activeRoutine, onAddWorkoutLog, onClearA
 
                         {/* Log rows */}
                         {elog.sets.map((set, sIdx) => (
-                          <div 
+                           <div 
                             key={set.id}
-                            className="grid grid-cols-12 gap-2 items-center bg-slate-900/10 hover:bg-slate-900/30 p-1.5 rounded-lg border border-slate-800/40"
+                            className="grid grid-cols-12 gap-2 items-center hover:bg-slate-850/10 p-1.5 rounded-lg border border-transparent hover:border-slate-850"
                           >
                             <div className="col-span-2 font-mono text-[11px] text-slate-400 font-bold px-1">
                               Set {sIdx+1}
@@ -339,7 +341,7 @@ export default function WorkoutLogger({ activeRoutine, onAddWorkoutLog, onClearA
                                   isRepsMetric ? 'reps' : 'holdTime', 
                                   parseInt(e.target.value) || 0
                                 )}
-                                className="w-full bg-slate-950 border border-slate-800 rounded p-1 text-xs text-white font-mono text-center focus:outline-none"
+                                className="w-full bg-slate-950 border border-slate-800 rounded-lg p-1.5 text-xs text-white font-mono text-center focus:outline-none"
                               />
                             </div>
 
@@ -356,7 +358,7 @@ export default function WorkoutLogger({ activeRoutine, onAddWorkoutLog, onClearA
                                   'weight', 
                                   parseFloat(e.target.value) || 0
                                 )}
-                                className="w-full bg-slate-950 border border-slate-800 rounded p-1 text-xs text-white font-mono text-center focus:outline-none"
+                                className="w-full bg-slate-950 border border-slate-800 rounded-lg p-1.5 text-xs text-white font-mono text-center focus:outline-none"
                               />
                             </div>
 
@@ -370,7 +372,7 @@ export default function WorkoutLogger({ activeRoutine, onAddWorkoutLog, onClearA
                                   'rpe', 
                                   parseInt(e.target.value) || 8
                                 )}
-                                className="bg-slate-950 border border-slate-800 rounded p-1 text-[11px] text-slate-300 font-mono focus:outline-none select-none text-center block w-full"
+                                className="bg-slate-950 border border-slate-800 rounded-lg p-1 text-[11px] text-slate-300 font-mono focus:outline-none select-none text-center block w-full"
                                 title="Rate of Perceived Exertion (1 to 10 scale)"
                               >
                                 {[10, 9.5, 9, 8.5, 8, 7.5, 7, 6].map(num => (
@@ -385,10 +387,10 @@ export default function WorkoutLogger({ activeRoutine, onAddWorkoutLog, onClearA
                             <div className="col-span-1 flex justify-center">
                               <button
                                 onClick={() => handleRemoveSet(elog.id, set.id)}
-                                className="text-slate-500 hover:text-rose-450 p-0.5 rounded transition-colors"
+                                className="text-slate-650 hover:text-rose-400 p-0.5 rounded transition-colors"
                                 title="Delete individual set row"
                               >
-                                <Trash size={12} />
+                                <Trash size={11} />
                               </button>
                             </div>
                           </div>
@@ -400,9 +402,9 @@ export default function WorkoutLogger({ activeRoutine, onAddWorkoutLog, onClearA
                     <div className="flex justify-start">
                       <button
                         onClick={() => handleAddSet(elog.id)}
-                        className="cursor-pointer text-[10.5px] font-mono font-bold text-indigo-400 hover:text-indigo-300 flex items-center gap-1 px-2 py-1 rounded hover:bg-indigo-500/5 transition-all"
+                        className="cursor-pointer text-[10px] font-mono font-bold text-indigo-400 hover:text-indigo-300 flex items-center gap-1.5 px-2 py-1 rounded transition-all"
                       >
-                        <Plus size={12} /> Add Progression Set
+                        <Plus size={12} /> Add Set
                       </button>
                     </div>
 
@@ -410,22 +412,22 @@ export default function WorkoutLogger({ activeRoutine, onAddWorkoutLog, onClearA
                 );
               })}
 
-              {/* Notes input & commit */}
-              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
+              {/* Notes input & commit - Clean card */}
+              <div className="pt-8 space-y-5">
                 <div>
-                  <label className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block mb-1.5 font-bold">
-                    Session Reflections & Progression Notes
+                  <label className="text-[10px] font-mono uppercase tracking-wider text-slate-500 block mb-2 font-bold select-none">
+                    Session Reflections & Notes
                   </label>
                   <textarea
                     rows={2}
-                    placeholder="e.g. Scapular shoulders felt highly stable today. Solid pull depth. Form crisp!"
+                    placeholder="Reflect on form, shoulder stability, reps speed, feeling strong..."
                     value={sessionNotes}
                     onChange={(e) => setSessionNotes(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 placeholder-slate-605 focus:outline-none focus:border-indigo-500/30 resize-none text-left"
+                    className="w-full bg-slate-900/50 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-300 placeholder-slate-605 focus:outline-none focus:border-indigo-500/20 resize-none text-left leading-relaxed"
                   />
                 </div>
 
-                <div className="flex items-center justify-between flex-wrap gap-2 pt-1">
+                <div className="flex items-center justify-between flex-wrap gap-2 pt-2">
                   <button
                     onClick={() => {
                       if (confirm('Erase active workout states completely?')) {
@@ -434,14 +436,14 @@ export default function WorkoutLogger({ activeRoutine, onAddWorkoutLog, onClearA
                         handleStopwatchReset();
                       }
                     }}
-                    className="cursor-pointer px-3 py-1.5 rounded-lg border border-slate-800 text-slate-400 hover:text-rose-450 bg-slate-950 hover:bg-rose-950/10 text-xs transition-all font-medium"
+                    className="cursor-pointer px-3.5 py-1.5 rounded-lg border border-slate-800/80 text-slate-500 hover:text-rose-400 bg-slate-950/40 hover:bg-rose-950/5 text-xs transition-all font-semibold"
                   >
                     Clear Slate
                   </button>
 
                   <button
                     onClick={handleSaveCompletedSession}
-                    className="cursor-pointer py-2.5 px-5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-xs tracking-tight transition-all flex items-center gap-1.5 shadow-lg shadow-indigo-650/10"
+                    className="cursor-pointer py-2.5 px-5 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold rounded-xl text-xs tracking-tight transition-all flex items-center gap-1.5 shadow-md shadow-indigo-650/5 text-white-force"
                   >
                     <Save size={14} /> Commit Completed Session
                   </button>
@@ -451,24 +453,24 @@ export default function WorkoutLogger({ activeRoutine, onAddWorkoutLog, onClearA
           )}
         </div>
 
-        {/* Right Side: Quick Add Exercises / Routine details */}
-        <div className="lg:col-span-4 bg-slate-900 border border-slate-800 rounded-2xl p-5 h-fit space-y-4">
-          <div className="pb-3 border-b border-slate-800 select-none">
-            <h4 className="text-xs font-bold text-white font-mono uppercase tracking-wider">Exercise Summoner</h4>
-            <p className="text-[11px] text-slate-400 leading-relaxed mt-1">
-              Assemble a freeform session by adding individual calisthenics exercises to your checklist below.
+        {/* Right Side: Quick Add Exercises / Routine details - Beautiful container */}
+        <div className="lg:col-span-4 bg-slate-900/30 border border-slate-800/60 rounded-2xl p-5 h-fit space-y-4">
+          <div className="pb-3 border-b border-slate-850 select-none">
+            <h4 className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">Exercise Summoner</h4>
+            <p className="text-[11px] text-slate-450 leading-relaxed mt-1">
+              Assemble a freeform session by pulling custom progressions directly into your log checklist.
             </p>
           </div>
 
           <div className="space-y-4">
             {/* Summon from list */}
             <div className="space-y-3">
-              <span className="text-[10px] font-mono uppercase text-slate-500 block font-bold">Select Component:</span>
-              <div className="space-y-2 max-h-[350px] overflow-y-auto pr-1">
+              <span className="text-[9px] font-mono uppercase text-slate-500 block font-bold">Choose progression target:</span>
+              <div className="space-y-2.5 max-h-[380px] overflow-y-auto pr-1">
                 {PROGRESSION_TREES.map((tree) => {
                   return (
-                    <div key={tree.id} className="p-1.5 space-y-1 bg-slate-950 rounded-xl border border-slate-800/80">
-                      <span className="text-[9px] font-mono uppercase text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20 block w-fit font-bold mb-1.5 align-middle">
+                    <div key={tree.id} className="p-2 space-y-1 bg-slate-950/60 rounded-xl border border-slate-850">
+                      <span className="text-[9px] font-mono uppercase text-indigo-400 bg-indigo-500/5 px-2 py-0.5 rounded border border-indigo-500/10 block w-fit font-bold mb-1.5">
                         {tree.name.replace(' Progression', '')}
                       </span>
                       {tree.levels.map(ex => {
@@ -481,15 +483,15 @@ export default function WorkoutLogger({ activeRoutine, onAddWorkoutLog, onClearA
                             disabled={isLogged}
                             className={`w-full text-left text-[11px] px-2.5 py-1.5 rounded-lg transition-all cursor-pointer flex items-center justify-between ${
                               isLogged
-                                ? 'bg-slate-900/40 text-slate-600 border border-transparent cursor-not-allowed'
-                                : 'bg-slate-900 hover:bg-slate-850 text-slate-300 border border-slate-800 hover:border-slate-700'
+                                ? 'bg-slate-900/10 text-slate-650 cursor-not-allowed'
+                                : 'bg-slate-900/60 hover:bg-slate-850/80 text-slate-350 border border-slate-850 hover:border-slate-800'
                             }`}
                           >
                             <span>Lvl {ex.level} | {ex.name}</span>
                             {isLogged ? (
                               <Check size={11} className="text-indigo-400 shrink-0" />
                             ) : (
-                              <PlusCircle size={11} className="text-slate-500 hover:text-indigo-400 shrink-0" />
+                              <PlusCircle size={10} className="text-slate-500 hover:text-indigo-400 shrink-0" />
                             )}
                           </button>
                         );

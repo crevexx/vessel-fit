@@ -80,40 +80,40 @@ export default function RestTimer() {
   return (
     <div 
       id="rest-timer"
-      className="bg-slate-900 border border-slate-800 rounded-2xl p-4 relative overflow-hidden"
+      className="bg-slate-900 border border-slate-800/60 rounded-2xl p-5 relative overflow-hidden"
     >
       {/* Background visual highlight */}
       <div className="absolute right-0 top-0 w-32 h-32 bg-indigo-500/5 blur-3xl rounded-full pointer-events-none"></div>
 
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-4 select-none">
         <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></div>
-          <span className="text-[10px] font-bold uppercase tracking-wider text-slate-300">
+          <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse"></div>
+          <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">
             Hypertrophy Rest Timer
           </span>
         </div>
 
         <button
           onClick={() => setSoundEnabled(!soundEnabled)}
-          className="text-slate-500 hover:text-slate-350 transition-colors p-1 rounded-md bg-slate-850"
+          className="text-slate-500 hover:text-slate-350 transition-colors p-1 rounded-md bg-slate-950 border border-slate-800/40"
           title={soundEnabled ? "Mute beep alarm" : "Unmute beep alarm"}
         >
-          {soundEnabled ? <Volume2 size={14} /> : <VolumeX size={14} />}
+          {soundEnabled ? <Volume2 size={13} /> : <VolumeX size={13} />}
         </button>
       </div>
 
       <div className="grid grid-cols-12 gap-4 items-center">
         {/* Timer display */}
-        <div className="col-span-7 flex flex-col items-center justify-center bg-slate-850/40 border border-slate-800/60 rounded-xl py-4 relative">
+        <div className="col-span-7 flex flex-col items-center justify-center bg-slate-950/80 border border-slate-800 rounded-xl py-4 relative">
           
           {/* Subtle percentage progress line */}
-          <div className="absolute bottom-0 left-0 h-1 bg-indigo-500/80 transition-all duration-300 rounded-b-xl" style={{ width: `${progressPercentage}%` }}></div>
+          <div className="absolute bottom-0 left-0 h-0.5 bg-indigo-500/60 transition-all duration-300 rounded-b-xl" style={{ width: `${progressPercentage}%` }}></div>
 
-          <span className="text-4xl font-mono font-extrabold tracking-tight text-white select-none">
+          <span className="text-4xl font-mono font-black tracking-tight text-white select-none">
             {formatTime(secondsLeft)}
           </span>
           
-          <span className="text-[9px] text-slate-500 uppercase font-mono tracking-wider mt-1">
+          <span className="text-[9px] text-slate-500 uppercase font-mono tracking-wider mt-1 font-bold">
             {isActive ? 'RESTING' : 'STANDBY'}
           </span>
         </div>
@@ -124,26 +124,26 @@ export default function RestTimer() {
             onClick={handleStartPause}
             className={`flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-semibold cursor-pointer transition-all ${
               isActive 
-                ? 'bg-amber-500/10 text-amber-400 border border-amber-500/30 hover:bg-amber-500/20' 
-                : 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 hover:bg-indigo-500/20'
+                ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20 hover:bg-amber-500/20' 
+                : 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 hover:bg-indigo-500/20'
             }`}
           >
-            {isActive ? <Pause size={14} /> : <Play size={14} />}
+            {isActive ? <Pause size={13} /> : <Play size={13} />}
             {isActive ? 'Pause' : 'Start'}
           </button>
 
           <button
             onClick={handleReset}
-            className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs text-slate-400 bg-slate-800 hover:bg-slate-700 hover:text-white border border-slate-705/80 cursor-pointer transition-all"
+            className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs text-slate-400 bg-slate-950 hover:bg-slate-850/80 hover:text-white border border-slate-800/80 cursor-pointer transition-all"
           >
-            <RotateCcw size={14} />
+            <RotateCcw size={13} />
             Reset
           </button>
         </div>
       </div>
 
       {/* Preset intervals */}
-      <div className="mt-4 flex flex-wrap gap-1.5 justify-between">
+      <div className="mt-4 flex flex-wrap gap-1.5 justify-between select-none">
         {[60, 90, 120, 180].map((secs) => {
           const minVal = secs / 60;
           const isSelected = initialSeconds === secs;
@@ -151,10 +151,10 @@ export default function RestTimer() {
             <button
               key={secs}
               onClick={() => setTimerDuration(secs)}
-              className={`flex-1 py-1 px-2 text-[10px] font-mono font-medium rounded-md border transition-all cursor-pointer ${
+              className={`flex-1 py-1.5 px-2 text-[10px] font-mono font-medium rounded-md border transition-all cursor-pointer ${
                 isSelected
-                  ? 'bg-indigo-500/20 text-indigo-400 border-indigo-500/40 font-bold'
-                  : 'bg-slate-800 text-slate-400 border-transparent hover:border-slate-700 hover:bg-slate-700 hover:text-slate-300'
+                  ? 'bg-indigo-505/10 text-indigo-400 border-indigo-500/20 font-bold'
+                  : 'bg-slate-950 text-slate-400 border-slate-850 hover:border-slate-800 hover:bg-slate-900 hover:text-slate-350'
               }`}
             >
               {minVal}m {secs % 60 ? `${secs % 60}s` : ''}
@@ -169,11 +169,11 @@ export default function RestTimer() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-indigo-500/10 border-2 border-indigo-500/40 rounded-xl flex flex-col items-center justify-center gap-1 backdrop-blur-xs select-none pointer-events-none"
+            className="absolute inset-0 bg-indigo-500/5 border-2 border-indigo-500/20 rounded-xl flex flex-col items-center justify-center gap-1 backdrop-blur-xs select-none pointer-events-none"
           >
-            <Flame className="text-indigo-400 animate-bounce" size={28} />
-            <span className="text-sm font-bold text-indigo-400 font-mono">REST PERIOD COMPLETE!</span>
-            <span className="text-[10px] text-indigo-500">Tap rest toggle to clear alert</span>
+            <Flame className="text-indigo-400 animate-bounce" size={24} />
+            <span className="text-xs font-bold text-indigo-400 font-mono">REST PERIOD COMPLETE!</span>
+            <span className="text-[9px] text-slate-500">Tap rest toggle to clear alert</span>
           </motion.div>
         )}
       </AnimatePresence>
