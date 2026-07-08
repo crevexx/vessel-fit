@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   TrendingUp, 
   Award, 
@@ -15,7 +15,9 @@ import {
   Moon,
   Share2,
   Menu,
-  X
+  X,
+  Download,
+  Upload
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Category, WorkoutLog, Routine, UserProgressState } from './types';
@@ -101,6 +103,7 @@ export default function App() {
   const [history, setHistory] = useState<WorkoutLog[]>([]);
   const [customRoutines, setCustomRoutines] = useState<Routine[]>([]);
   const [activeWorkoutRoutine, setActiveWorkoutRoutine] = useState<Routine | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -228,6 +231,77 @@ export default function App() {
       
       alert('Local database completely cleared.');
     }
+  };
+
+  const handleExportData = () => {
+    try {
+      const exportPayload = {
+        app: 'vessel',
+        version: 3,
+        exportedAt: new Date().toISOString(),
+        data: {
+          currentLevels,
+          history,
+          customRoutines,
+        },
+      };
+      const blob = new Blob([JSON.stringify(exportPayload, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const dateStamp = new Date().toISOString().slice(0, 10);
+      a.href = url;
+      a.download = `vessel-backup-${dateStamp}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      setToast('Progress exported to file!');
+    } catch (e) {
+      console.error('Failed to export data', e);
+      setToast('Export failed — see console.');
+    }
+  };
+
+  const handleImportClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleImportFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    // Reset the input so re-selecting the same file still triggers onChange
+    e.target.value = '';
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const parsed = JSON.parse(event.target?.result as string);
+        const incoming = parsed?.data ?? parsed; // accept raw or wrapped exports
+
+        const validLevels = incoming?.currentLevels && typeof incoming.currentLevels === 'object';
+        const validHistory = Array.isArray(incoming?.history);
+        const validRoutines = Array.isArray(incoming?.customRoutines);
+
+        if (!validLevels || !validHistory || !validRoutines) {
+          setToast('Import failed — not a valid Vessel backup file.');
+          return;
+        }
+
+        if (!confirm('Import this backup? It will overwrite your current progress, logs, and routines.')) {
+          return;
+        }
+
+        saveLevelsToStore(incoming.currentLevels);
+        saveHistoryToStore(incoming.history);
+        saveCustomRoutinesToStore(incoming.customRoutines);
+        setActiveWorkoutRoutine(null);
+        setToast('Progress imported successfully!');
+      } catch (err) {
+        console.error('Failed to import data', err);
+        setToast('Import failed — file is not valid JSON.');
+      }
+    };
+    reader.readAsText(file);
   };
 
   // Combine Default and Custom Routines
@@ -508,6 +582,31 @@ export default function App() {
                     <p className="text-[10px] text-slate-400 leading-normal mt-0.5">
                       This system runs entirely on sandbox client localStorage. Toggle factory states below.
                     </p>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      onClick={handleExportData}
+                      className="cursor-pointer py-2 px-3 bg-slate-950 hover:bg-slate-800 text-slate-300 border border-slate-800 hover:border-slate-700 transition-all text-xs font-semibold rounded-xl flex items-center justify-center gap-1.5"
+                    >
+                      <Download size={11} />
+                      Export Data
+                    </button>
+
+                    <button
+                      onClick={handleImportClick}
+                      className="cursor-pointer py-2 px-3 bg-slate-950 hover:bg-slate-800 text-slate-300 border border-slate-800 hover:border-slate-700 transition-all text-xs font-semibold rounded-xl flex items-center justify-center gap-1.5"
+                    >
+                      <Upload size={11} />
+                      Import Data
+                    </button>
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="application/json"
+                      onChange={handleImportFile}
+                      className="hidden"
+                    />
                   </div>
 
                   <div className="grid grid-cols-2 gap-2">
